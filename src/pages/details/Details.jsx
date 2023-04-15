@@ -8,6 +8,8 @@ import Cast from "./cast/Cast";
 import VideoSection from "./videosSection/VideoSection";
 import Similar from "./carousels/Similar";
 import Recommendation from "./carousels/Recommendation";
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
 
 const Details = () => {
     const { mediaType, id } = useParams();
@@ -18,11 +20,13 @@ const Details = () => {
 
     return (
         <div>
+            <Header />
             <DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
             <Cast data={credits?.cast} loading={creditsLoading} />
             <VideoSection data={data} loading={loading} />
             <Similar mediaType={mediaType} id={id} />
             <Recommendation mediaType={mediaType} id={id} />
+            <Footer/>
         </div>
     );
 };
