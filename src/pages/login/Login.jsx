@@ -22,6 +22,7 @@ const Login = () => {
   const [pass, setPass] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [regError,setRegError] = useState("");
   //console.log(email);
   const navigate = useNavigate();
 
@@ -102,10 +103,12 @@ const Login = () => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        console.log(userCredential);
+        navigate("/");
+        console.log("user registered succesfully")
       })
       .catch((error) => {
-        console.log(error);
+        setRegError("Not Registered")
+
       });
   };
 
