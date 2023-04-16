@@ -9,6 +9,8 @@ import "./style.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import logo from "../../assets/movix-logo.svg";
 
+// firbase ka jugaad hai idhr 
+
 const Header = () => {
     const [show, setShow] = useState("top");
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -17,6 +19,9 @@ const Header = () => {
     const [showSearch, setShowSearch] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+
+    // writing logic for signing out and showing sign out button
+
 
     useEffect(() => {
         window.scrollTo(0, 0);

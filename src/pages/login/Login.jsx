@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import logo from "../../assets/movix-logo.svg";
+import { useNavigate } from "react-router-dom";
 
+// import authstatechanged to check if the user is logged in or not
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
+// auth from firebase authentication
+import { auth } from "../../firebase";
+
+// import sign in with email and password
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+// import user with email and passworrd
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  // state to get dyanmic background
+  // state for email , password and username
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
+  //console.log(email);
+  const navigate = useNavigate();
+
+  const [authUser, setAuthUser] = useState(null);
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
+
+    // unmounting the hoook
+    return () => {
+      listen();
+    };
+  }, []);
+  // signing out the user
+
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setEmail('');
+        setPass('');
+        setUsername('');
+        console.log("sign out successful");
+      })
+      .catch((error) => console.log(error));
+  };
 
   // WRITING SCRIPT FOR LOGIN PAGE
   const wrapper = document.querySelector(".wrapper");
@@ -31,8 +77,47 @@ const Login = () => {
     wrapper.classList.remove("active-popup");
   });
 
+  // function to reset all values (email, pass , username)
+  const reset = () => {
+    setEmail("");
+    setPass("");
+    setUsername("");
+  };
+
+  // handle submit on login
+  const handleSubmit = (e) => {
+    // to do login
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        setError("User not registered!");
+      });
+  };
+
+  // register function to register user
+  const register = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // icon pr close krne pr sab clear ho jana chaiye
+  const iconset = () => {
+    setEmail("");
+    setPass("");
+    setUsername("");
+  };
+
   return (
-    <div className="full" >
+    <div className="full">
       <header>
         <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="" />
@@ -40,29 +125,45 @@ const Login = () => {
         <nav className="navigation">
           <a href="#">About</a>
           <a href="#">Contact</a>
-          <button class="btnLogin-popup">Login</button>
+          {authUser ? (
+            <button class="btnLogin-popup" onClick={userSignOut}>
+              SignOut{" "}
+            </button>
+          ) : (
+            <button class="btnLogin-popup">Login</button>
+          )}
         </nav>
       </header>
 
       <div className="wrapper">
-        <span className="icon-close">
+        <span className="icon-close" onClick={iconset}>
           <ion-icon name="close"></ion-icon>
         </span>
         <div className="form-box login">
           <h2>Login</h2>
-          <form action="#">
+          <form onSubmit={handleSubmit}>
             <div className="input-box">
               <span class="icon">
                 <ion-icon name="mail"></ion-icon>
               </span>
-              <input type="email" required />
+              <input
+                type="text"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <label>Email</label>
             </div>
             <div className="input-box">
               <span class="icon">
                 <ion-icon name="lock-closed"></ion-icon>
               </span>
-              <input type="email" required />
+              <input
+                type="password"
+                required
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+              />
               <label>Password</label>
             </div>
             <div className="remember-forgot">
@@ -72,13 +173,14 @@ const Login = () => {
               </label>
               <a href="#">Forgot Password?</a>
             </div>
-            <button type="submit" className="btn">
+            <button type="submit" className="btn" onClick={handleSubmit}>
               Login
             </button>
+            {error && <p className="login-error">{error}</p>}
             <div className="login-register">
               <p>
                 Dont have an account?
-                <a href="#" className="register-link">
+                <a href="#" className="register-link" onClick={reset}>
                   Register
                 </a>
               </p>
@@ -87,26 +189,41 @@ const Login = () => {
         </div>
         <div className="form-box register">
           <h2>Registration</h2>
-          <form action="#">
+          <form onSubmit={register}>
             <div className="input-box">
               <span class="icon">
                 <ion-icon name="person"></ion-icon>
               </span>
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
               <label>Username</label>
             </div>
             <div className="input-box">
               <span class="icon">
                 <ion-icon name="mail"></ion-icon>
               </span>
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <label>Email</label>
             </div>
             <div className="input-box">
               <span class="icon">
                 <ion-icon name="lock-closed"></ion-icon>
               </span>
-              <input type="email" required />
+              <input
+                type="password"
+                required
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+              />
               <label>Password</label>
             </div>
             <div className="remember-forgot">

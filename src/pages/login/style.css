@@ -178,8 +178,6 @@ header{
     pointer-events: none;
     transition: .5s;
 }
-
-
 .input-box input:focus~label,
 .input-box input:valid~label{
     top: -5px;
@@ -195,7 +193,6 @@ header{
     font-weight: 600;
     padding: 0 35px 0 5px;
 }
-
 .input-box .icon{
     position: absolute;
     right: 8px;
@@ -203,6 +200,8 @@ header{
     color: #162938;
     line-height: 57px;
 }
+
+
 
 
 .remember-forgot{
@@ -258,4 +257,13 @@ header{
 
 .login-register p a:hover{
     text-decoration: underline;
+}
+
+.login-error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    color: red;
+
 }

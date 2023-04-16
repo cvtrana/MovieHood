@@ -13,6 +13,7 @@ import SearchResult from "./pages/searchResult/SearchResult";
 import Explore from "./pages/explore/Explore";
 import PageNotFound from "./pages/404/PageNotFound";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register"
 
 function App() {
     const dispatch = useDispatch();
@@ -62,8 +63,9 @@ function App() {
         <BrowserRouter>
            {/* <Header /> */}
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path = "/login" element ={<Login/>}/>
+                <Route path="/" element={<Login />} />
+                <Route path = "/home" element ={<Home/>}/>
+                <Route path = "/register" element = {<Register/>}/>
                 <Route path="/:mediaType/:id" element={<Details />} />
                 <Route path="/search/:query" element={<SearchResult />} />
                 <Route path="/explore/:mediaType" element={<Explore />} />

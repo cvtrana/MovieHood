@@ -1,6 +1,8 @@
 import React from "react";
 
 import "./style.scss";
+import Footer from "../../components/footer/Footer";
+
 
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import Header from "../../components/header/Header";
