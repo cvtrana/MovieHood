@@ -267,3 +267,11 @@ header{
     color: red;
 
 }
+.reg-done{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    color: rgb(3, 94, 3);
+
+}

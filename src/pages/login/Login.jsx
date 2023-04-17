@@ -23,6 +23,8 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [regError,setRegError] = useState("");
+  const [userRegMsg,setUserRegMsg] = useState("");
+  //const [disabled,setdisabled] = useState(false);
   //console.log(email);
   const navigate = useNavigate();
 
@@ -101,15 +103,19 @@ const Login = () => {
   // register function to register user
   const register = (e) => {
     e.preventDefault();
+    //setdisabled(true);
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        navigate("/");
+        //navigate("/");
         console.log("user registered succesfully")
       })
       .catch((error) => {
         setRegError("Not Registered")
 
       });
+      navigate("/")
+      setUserRegMsg("User registered succesfully!")
+      //setdisabled(false);
   };
 
   // icon pr close krne pr sab clear ho jana chaiye
@@ -128,13 +134,14 @@ const Login = () => {
         <nav className="navigation">
           <a href="#">About</a>
           <a href="#">Contact</a>
-          {authUser ? (
+          <button class="btnLogin-popup">Login</button>
+          {/* {authUser ? (
             <button class="btnLogin-popup" onClick={userSignOut}>
               SignOut{" "}
             </button>
           ) : (
             <button class="btnLogin-popup">Login</button>
-          )}
+          )} */}
         </nav>
       </header>
 
@@ -234,9 +241,10 @@ const Login = () => {
                 <input type="checkbox" />I agree terms and conditions
               </label>
             </div>
-            <button type="submit" className="btn">
+            <button type="submit" className="btn" >
               Register
             </button>
+            <p className="reg-done">{userRegMsg}</p>
             <div className="login-register">
               <p>
                 Already have an account?
