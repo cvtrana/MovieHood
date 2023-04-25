@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import logo from "../../assets/movix-logo.svg";
+import logo from "../../assets/rom.png";
 import { useNavigate } from "react-router-dom";
 
 // import authstatechanged to check if the user is logged in or not
@@ -22,9 +22,9 @@ const Login = () => {
   const [pass, setPass] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
-  const [regError,setRegError] = useState("");
-  const [userRegMsg,setUserRegMsg] = useState("");
-  //const [disabled,setdisabled] = useState(false);
+  const [regError, setRegError] = useState("");
+  const [userRegMsg, setUserRegMsg] = useState("");
+  const [disabled, setdisabled] = useState(false);
   //console.log(email);
   const navigate = useNavigate();
 
@@ -48,9 +48,9 @@ const Login = () => {
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
-        setEmail('');
-        setPass('');
-        setUsername('');
+        setEmail("");
+        setPass("");
+        setUsername("");
         console.log("sign out successful");
       })
       .catch((error) => console.log(error));
@@ -62,6 +62,10 @@ const Login = () => {
   const registerLink = document.querySelector(".register-link");
   const btnPopup = document.querySelector(".btnLogin-popup");
   const iconClose = document.querySelector(".icon-close");
+  // const colorChange = document.querySelector(".btn");
+  // colorChange?.addEventListener("click", () => {
+  //   wrapper.classList.add("color-change");
+  // });
 
   registerLink?.addEventListener("click", () => {
     wrapper.classList.add("active");
@@ -91,13 +95,21 @@ const Login = () => {
   const handleSubmit = (e) => {
     // to do login
     e.preventDefault();
+    setdisabled(true);
+    const adder = document.getElementById("button-click");
+    adder?.addEventListener("click",()=>{
+      // how too add the class here now 
+      adder.classList.add("color-change"); //  here a new class will be added on clicking 
+    })
     signInWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
-        navigate("/home");
+          navigate("/home");
+        
       })
       .catch((error) => {
         setError("User not registered!");
       });
+    setdisabled(false);
   };
 
   // register function to register user
@@ -107,15 +119,14 @@ const Login = () => {
     createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         //navigate("/");
-        console.log("user registered succesfully")
+        console.log("user registered succesfully");
       })
       .catch((error) => {
-        setRegError("Not Registered")
-
+        setRegError("Not Registered");
       });
-      navigate("/")
-      setUserRegMsg("User registered succesfully!")
-      //setdisabled(false);
+    navigate("/");
+    setUserRegMsg("User registered succesfully!");
+    //setdisabled(false);
   };
 
   // icon pr close krne pr sab clear ho jana chaiye
@@ -135,13 +146,13 @@ const Login = () => {
           <a href="#">About</a>
           <a href="#">Contact</a>
           <button class="btnLogin-popup">Login</button>
-          {/* {authUser ? (
-            <button class="btnLogin-popup" onClick={userSignOut}>
-              SignOut{" "}
-            </button>
-          ) : (
-            <button class="btnLogin-popup">Login</button>
-          )} */}
+            {/* {authUser ? (
+              <button class="btnLogin-popup" onClick={userSignOut}>
+                SignOut{" "}
+              </button>
+            ) : (
+              <button class="btnLogin-popup">Login</button>
+            )} */}
         </nav>
       </header>
 
@@ -183,7 +194,13 @@ const Login = () => {
               </label>
               <a href="#">Forgot Password?</a>
             </div>
-            <button type="submit" className="btn" onClick={handleSubmit}>
+            <button
+            id="button-click"
+              type="submit"
+              className="btn"
+              onClick={handleSubmit}
+              disabled={disabled}
+            >
               Login
             </button>
             {error && <p className="login-error">{error}</p>}
@@ -241,7 +258,7 @@ const Login = () => {
                 <input type="checkbox" />I agree terms and conditions
               </label>
             </div>
-            <button type="submit" className="btn" >
+            <button type="submit" className="btn">
               Register
             </button>
             <p className="reg-done">{userRegMsg}</p>

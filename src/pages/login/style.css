@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('../../assets/background.jpg') no-repeat;
+    background: url('../../assets/justice.jpg') no-repeat;
     background-size: cover;
     background-position: center;
       /* filter: blur(8px); */
@@ -81,6 +81,15 @@ header{
     background: #fff;
     color: #162938;
     
+}
+.btn :disabled{
+    background: lightskyblue;
+
+}
+
+.btn:active {
+    transition: 0.3s all;
+    background-color: lightskyblue;
 }
 
 .wrapper{
@@ -173,14 +182,14 @@ header{
     left:5px;
     transform: translateY(-50%);
     font-size: 1em;
-    color: #162938;
+    color: 162938;
     font-weight: 500;
     pointer-events: none;
     transition: .5s;
 }
 .input-box input:focus~label,
 .input-box input:valid~label{
-    top: -5px;
+    top: -12px;
 }
 .input-box input{
     width: 100%;
@@ -189,7 +198,7 @@ header{
     border: none;
     outline: none;
     font-size: 1em;
-    color: #162938;
+    color: 162938;
     font-weight: 600;
     padding: 0 35px 0 5px;
 }
