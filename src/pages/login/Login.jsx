@@ -144,7 +144,7 @@ const Login = () => {
         </div>
         <nav className="navigation">
           <a href="#">About</a>
-          <a href="#">Contact</a>
+          {/* <a href="#">Contact</a> */}
           <button class="btnLogin-popup">Login</button>
             {/* {authUser ? (
               <button class="btnLogin-popup" onClick={userSignOut}>
