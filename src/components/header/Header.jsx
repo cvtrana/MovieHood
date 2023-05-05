@@ -121,11 +121,11 @@ const Header = () => {
           <li className="menuItem" onClick={() => navigationHandler("tv")}>
             TV Shows
           </li>
-          <li className="menuItem">
-            <HiOutlineSearch onClick={openSearch} />
-          </li>
           <li className="menuItem" onClick={userSignOut}>
             {authUser ? "Signout" : "Login"}
+          </li>
+          <li className="menuItem">
+            <HiOutlineSearch onClick={openSearch} />
           </li>
         </ul>
 

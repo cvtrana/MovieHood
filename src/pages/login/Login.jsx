@@ -15,6 +15,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 // import user with email and passworrd
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Footer from "../../components/footer/Footer";
 
 const Login = () => {
   // state for email , password and username
@@ -137,13 +138,14 @@ const Login = () => {
   };
 
   return (
+    
     <div className="full">
       <header>
         <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="" />
         </div>
         <nav className="navigation">
-          <a href="#">About</a>
+          {/* <a href="#">About</a> */}
           {/* <a href="#">Contact</a> */}
           <button class="btnLogin-popup">Login</button>
             {/* {authUser ? (
